@@ -1,8 +1,8 @@
-package com.customshop.back.auth.control;
+package com.customshop.back.query.control;
 
 import com.customshop.back.model.dto.GetUserDataResDto;
-import com.customshop.back.auth.service.UserService;
 import com.customshop.back.model.entity.User;
+import com.customshop.back.query.service.AdminPanelQueryService;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,20 +17,19 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/customshop/v1/admin")
-public class AdminPannelController {
+public class AdminPanelQueryController {
 
     @Autowired
-    private UserService userService;
+    private AdminPanelQueryService queryService;
 
-    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header", example = "Bearer_access-token")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header", defaultValue = "Bearer_")
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GetUserDataResDto> getUserData(@PathVariable(name = "id") UUID id) {
-        User result = userService.findById(id);
+        User result = queryService.findUserByUserId(id);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(new GetUserDataResDto(result), HttpStatus.OK);
 
     }
-
 }

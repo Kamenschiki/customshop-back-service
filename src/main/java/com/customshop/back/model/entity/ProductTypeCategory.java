@@ -1,23 +1,28 @@
 package com.customshop.back.model.entity;
 
-import com.customshop.back.model.auditable.AuditableEnteredBy;
+import com.customshop.back.model.entity.auditable.AuditableEnteredBy;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "PRODUCT_TYPE_CATEGORIES")
+@Table(name = "product_type_categories")
 @EqualsAndHashCode(callSuper = true)
 public class ProductTypeCategory extends AuditableEnteredBy {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PRODUCT_TYPE_CATEGORY_ID")
+    @Type(type = "uuid-char")
+    @Column(name = "product_type_category_id")
     private UUID productTypeCategoryId;
 
-    @Column(name = "CATEGORY_NAME")
+    @Type(type = "uuid-char")
+    @Column(name = "category_name")
     private String categoryName;
 }

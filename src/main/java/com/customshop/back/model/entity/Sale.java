@@ -1,10 +1,14 @@
 package com.customshop.back.model.entity;
 
-import com.customshop.back.model.auditable.AuditableEnteredBy;
+import com.customshop.back.model.entity.auditable.AuditableEnteredBy;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Data
@@ -14,6 +18,7 @@ import java.util.UUID;
 public class Sale extends AuditableEnteredBy {
 
     @Id
+    @Type(type = "uuid-char")
     @Column(name = "sale_id")
     private UUID saleId;
 

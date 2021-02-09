@@ -1,22 +1,25 @@
 package com.customshop.back.auth.control;
 
-import com.customshop.back.auth.service.UserService;
-import com.customshop.back.model.dto.GetUserDataResDto;
-import com.customshop.back.model.entity.User;
 import com.customshop.back.auth.security.jwt.JwtAuthException;
 import com.customshop.back.auth.security.jwt.JwtTokenProvider;
+import com.customshop.back.model.dao.UserDao;
+import com.customshop.back.model.dto.GetUserDataResDto;
+import com.customshop.back.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/customshop/v1/user")
 public class UserCabinetController {
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
@@ -25,7 +28,7 @@ public class UserCabinetController {
 
         String resolvedToken = jwtTokenProvider.resolveToken(accessToken);
         if (jwtTokenProvider.validateToken(resolvedToken)) {
-            User result = userService.findByUsername(jwtTokenProvider.getUsername(resolvedToken));
+            User result = userDao.findByName(jwtTokenProvider.getUsername(resolvedToken));
             if (result == null) {
                 throw new RuntimeException("404 User not found");
             }

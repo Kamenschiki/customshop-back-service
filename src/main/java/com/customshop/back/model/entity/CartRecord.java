@@ -1,11 +1,14 @@
 package com.customshop.back.model.entity;
 
-import com.customshop.back.model.auditable.AuditableSession;
+import com.customshop.back.model.entity.auditable.AuditableSession;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Data
@@ -21,9 +24,11 @@ public class CartRecord extends AuditableSession {
     @Column(name = "cart_record_id", columnDefinition = "uniqueidentifier")
     private UUID cartRecordId;
 
+    @Type(type = "uuid-char")
     @Column(name = "cart_id")
     private UUID cartId;
 
+    @Type(type = "uuid-char")
     @Column(name = "product_type_id")
     private UUID productTypeId;
 

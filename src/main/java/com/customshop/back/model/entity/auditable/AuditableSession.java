@@ -1,4 +1,4 @@
-package com.customshop.back.model.auditable;
+package com.customshop.back.model.entity.auditable;
 
 import lombok.Data;
 

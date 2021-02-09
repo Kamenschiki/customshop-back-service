@@ -1,11 +1,12 @@
 package com.customshop.back.model.entity;
 
-import com.customshop.back.model.auditable.AuditableSession;
 import com.customshop.back.model.dto.SignUpReqDto;
+import com.customshop.back.model.entity.auditable.AuditableSession;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Table(name = "users")
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
+@Component
 public class User extends AuditableSession {
 
     @Id
@@ -23,6 +25,7 @@ public class User extends AuditableSession {
     @Column(name = "user_id", columnDefinition = "uniqueidentifier")
     private UUID userId;
 
+    @Type(type = "uuid-char")
     @Column(name = "cart_id")
     private UUID cartId;
 
