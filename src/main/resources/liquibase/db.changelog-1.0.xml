@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet  id="0.0.1" author="mrscors">
+        <sqlFile path="classpath:liquibase/sql/changeset-1.0.sql"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_roles"
+                                 constraintName="fk_user_roles_user"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="user_id"
+                                 referencedTableName="users"/>
+
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="user_roles"
+                                 constraintName="fk_user_roles_roles"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="role_id"
+                                 referencedTableName="roles"/>
+    </changeSet>
+
+    <changeSet id="0.0.2" author="mrscors">
+        <insert tableName="roles">
+            <column name="role_id" value="00000000-0000-0000-0000-000000000001"/>
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_id" value="00000000-0000-0000-0000-000000000000"/>
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+        <insert tableName="users">
+            <column name="user_id" value="00000001-0000-0000-0000-000000000000"/>
+            <column name="name" value="root"/>
+            <column name="password" value="$2a$04$8uHXQU5emxqrZcEVXwyL/.xcrsMA19jyVnsF7Uu1Cno6it5qF6gaK"/>
+            <column name="auditable_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="users">
+            <column name="user_id" value="00000002-0000-0000-0000-000000000000"/>
+            <column name="name" value="user"/>
+            <column name="password" value="$2a$04$8uHXQU5emxqrZcEVXwyL/.xcrsMA19jyVnsF7Uu1Cno6it5qF6gaK"/>
+            <column name="auditable_status" value="ACTIVE"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" value="00000001-0000-0000-0000-000000000000"/>
+            <column name="role_id" value="00000000-0000-0000-0000-000000000000"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" value="00000001-0000-0000-0000-000000000000"/>
+            <column name="role_id" value="00000000-0000-0000-0000-000000000001"/>
+        </insert>
+        <insert tableName="user_roles">
+            <column name="user_id" value="00000002-0000-0000-0000-000000000000"/>
+            <column name="role_id" value="00000000-0000-0000-0000-000000000001"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
