@@ -19,8 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final String LOGIN_ENDPOINT = "/customshop/v1/auth/login";
 
     @Autowired
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider
-    ) {
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -32,17 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // TODO: update privacy policies
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity
-                .httpBasic().disable()
-                .csrf().disable() // should be enabled later
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // not creating session for each user
-                .and()
-                .authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT).permitAll() // urls
-                .antMatchers(ADMIN_ENDPOINTS).hasRole("ADMIN")
-                .antMatchers(USER_ENDPOINTS).hasRole("USER")
-                .and()
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.httpBasic().disable().csrf().disable() // should be enabled later
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // not creating session for
+                                                                                            // each user
+                .and().authorizeRequests().antMatchers(LOGIN_ENDPOINT).permitAll() // urls
+                .antMatchers(ADMIN_ENDPOINTS).hasRole("ADMIN").antMatchers(USER_ENDPOINTS).hasRole("USER").and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
     }
 

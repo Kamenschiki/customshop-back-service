@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Data
 @MappedSuperclass
-public class AuditableEnteredBy extends AuditableSession{
+public class AuditableEnteredBy extends AuditableSession {
 
     @CreatedBy
     @Column(name = "CREATED_BY_ADMIN_ID")

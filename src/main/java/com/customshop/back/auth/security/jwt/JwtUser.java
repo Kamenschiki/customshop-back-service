@@ -21,13 +21,8 @@ public class JwtUser implements UserDetails {
     private final Timestamp lastPasswordResetDate;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUser(UUID userId,
-                   String username,
-                   String password,
-                   String email,
-                   Boolean enabled,
-                   Timestamp lastPasswordResetDate,
-                   Collection<? extends GrantedAuthority> authorities) {
+    public JwtUser(UUID userId, String username, String password, String email, Boolean enabled,
+            Timestamp lastPasswordResetDate, Collection<? extends GrantedAuthority> authorities) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -36,7 +31,6 @@ public class JwtUser implements UserDetails {
         this.lastPasswordResetDate = lastPasswordResetDate;
         this.authorities = authorities;
     }
-
 
     @Override
 //    @JsonIgnore

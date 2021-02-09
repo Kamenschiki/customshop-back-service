@@ -19,7 +19,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     private final UserService userService;
 
     @Autowired
-    public JwtUserDetailsService(UserService userService){
+    public JwtUserDetailsService(UserService userService) {
         this.userService = userService;
     }
 
@@ -27,7 +27,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
         User user = userService.findByUsername(username);
 
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("User with username " + username + " not found");
         }
 

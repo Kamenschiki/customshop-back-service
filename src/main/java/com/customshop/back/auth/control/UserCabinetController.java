@@ -24,9 +24,9 @@ public class UserCabinetController {
     public ResponseEntity<GetUserDataResDto> getUserData(@RequestHeader(name = "Authorization") String accessToken) {
 
         String resolvedToken = jwtTokenProvider.resolveToken(accessToken);
-        if(jwtTokenProvider.validateToken(resolvedToken)){
+        if (jwtTokenProvider.validateToken(resolvedToken)) {
             User result = userService.findByUsername(jwtTokenProvider.getUsername(resolvedToken));
-            if(result == null){
+            if (result == null) {
                 throw new RuntimeException("404 User not found");
             }
             return new ResponseEntity<>(new GetUserDataResDto(result), HttpStatus.OK);
