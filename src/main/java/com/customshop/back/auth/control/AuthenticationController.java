@@ -5,6 +5,7 @@ import com.customshop.back.model.dto.*;
 import com.customshop.back.auth.security.jwt.JwtAuthException;
 import com.customshop.back.auth.security.jwt.JwtTokenProvider;
 import com.customshop.back.model.entity.User;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
+    @ApiOperation(value = "Sign in with username", response = SignInResDto.class)
     @PostMapping(value = "/signInWithUsername", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SignInResDto> signInWithUsername(@RequestBody SignInWithUsernameReqDto signInReqDto) {
         try {
@@ -45,7 +47,7 @@ public class AuthenticationController {
         }
 
     }
-
+    @ApiOperation(value = "Sign in with email", response = SignInResDto.class)
     @PostMapping(value = "/signInWithEmail", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SignInResDto> signInWithEmail(@RequestBody SignInWithEmailReqDto signInReqDto) {
         try {
@@ -63,6 +65,7 @@ public class AuthenticationController {
 
     }
 
+    @ApiOperation(value = "Sign up", response = SignUpResDto.class)
     @PostMapping(value = "/signUp", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SignUpResDto> signUp(@RequestBody SignUpReqDto signUpReqDto) {
         return ResponseEntity.ok(new SignUpResDto(userService.userSignUp(signUpReqDto).toString()));

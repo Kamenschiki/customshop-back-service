@@ -14,17 +14,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
-//    private final UserDetailsService userDetailsService;
     private final String ADMIN_ENDPOINTS = "/customshop/v1/admin/**";
     private final String USER_ENDPOINTS = "/customshop/v1/user/**";
     private final String LOGIN_ENDPOINT = "/customshop/v1/auth/login";
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider
-//            , @Qualifier("jwtUserDetailsService") UserDetailsService userDetailsService
     ) {
         this.jwtTokenProvider = jwtTokenProvider;
-//        this.userDetailsService = userDetailsService;
     }
 
     @Bean
