@@ -15,18 +15,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     @Bean
-    public Docket api(){
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(getApiInfo()).select()
-                .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
-                .build();
+                .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot"))).build();
     }
 
-    private ApiInfo getApiInfo(){
-        return new ApiInfoBuilder()
-                .title("CustomShop API Swagger documentation")
-                .description("This documentation can be used to explore CustomShop API")
-                .version("v1.0")
-                .build();
+    private ApiInfo getApiInfo() {
+        return new ApiInfoBuilder().title("CustomShop API Swagger documentation")
+                .description("This documentation can be used to explore CustomShop API").version("v1.0").build();
     }
 
 }

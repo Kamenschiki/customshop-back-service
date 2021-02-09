@@ -3,6 +3,7 @@ package com.customshop.back.auth.control;
 import com.customshop.back.model.dto.GetUserDataResDto;
 import com.customshop.back.auth.service.UserService;
 import com.customshop.back.model.entity.User;
+import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,10 +22,11 @@ public class AdminPannelController {
     @Autowired
     private UserService userService;
 
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", paramType = "header", example = "Bearer_access-token")
     @GetMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GetUserDataResDto> getUserData(@PathVariable(name = "id") UUID id) {
         User result = userService.findById(id);
-        if(result==null){
+        if (result == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(new GetUserDataResDto(result), HttpStatus.OK);

@@ -26,6 +26,7 @@ customshop-backend-service developed as open source so anyone can use its wide f
 11. Locations
 12. Comparing in same category
 13. Product images
+13. Error handling
 
 ###SWAGGER 2.0 Documentation
 ####http://localhost:8080/swagger-ui.html#/

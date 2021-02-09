@@ -26,7 +26,7 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public UUID userSignUp(SignUpReqDto signUpReqDto){
+    public UUID userSignUp(SignUpReqDto signUpReqDto) {
         User user = new User(signUpReqDto);
         Role roleUser = roleRepo.findByName("USER");
         user.setRoles(new ArrayList<>());
@@ -37,38 +37,38 @@ public class UserService {
         user.setAuditableStatus(AuditableStatus.ACTIVE);
 
         User registeredUser = userRepo.save(user);
-        log.info("User with id: {} saved",user.getUserId());
+        log.info("User with id: {} saved", user.getUserId());
         return registeredUser.getUserId();
     }
 
-    public List<User> getAll(){
+    public List<User> getAll() {
         List<User> users = userRepo.findAll();
         log.info("Number of users found: {}", users.size());
         return users;
     }
 
-    public User findByUsername(String username){
-        User user = userRepo.findByName(username).orElseThrow(
-                () -> new RuntimeException("404 User with username: " + username + " not found"));
+    public User findByUsername(String username) {
+        User user = userRepo.findByName(username)
+                .orElseThrow(() -> new RuntimeException("404 User with username: " + username + " not found"));
         log.info("User with name: {} found", username);
         return user;
     }
 
-    public User findByEmail(String email){
-        User user = userRepo.findByEmail(email).orElseThrow(
-                () -> new RuntimeException("404 User with email: " + email + " not found"));
+    public User findByEmail(String email) {
+        User user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("404 User with email: " + email + " not found"));
         log.info("User with email: {} found", email);
         return user;
     }
 
-    public User findById(UUID id){
-        User user = userRepo.findById(id).orElseThrow(
-                () -> new RuntimeException("404 User with id: " + id.toString() + " not found"));
+    public User findById(UUID id) {
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("404 User with id: " + id.toString() + " not found"));
         log.info("User with id {} found", id);
         return user;
     }
 
-    public void delete(UUID id){
+    public void delete(UUID id) {
         userRepo.deleteById(id);
         log.info("User with id {} deleted", id);
     }

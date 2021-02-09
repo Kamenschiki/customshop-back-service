@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/customshop/v1/auth")
 public class AuthenticationController {
 
-
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
+    public AuthenticationController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider,
+            UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
@@ -35,7 +35,8 @@ public class AuthenticationController {
     public ResponseEntity<SignInResDto> signInWithUsername(@RequestBody SignInWithUsernameReqDto signInReqDto) {
         try {
             String username = signInReqDto.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, signInReqDto.getPassword()));
+            authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(username, signInReqDto.getPassword()));
             User user = userService.findByUsername(username);
 
             String token = jwtTokenProvider.createToken(username, user.getRoles());
@@ -47,13 +48,15 @@ public class AuthenticationController {
         }
 
     }
+
     @ApiOperation(value = "Sign in with email", response = SignInResDto.class)
     @PostMapping(value = "/signInWithEmail", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SignInResDto> signInWithEmail(@RequestBody SignInWithEmailReqDto signInReqDto) {
         try {
             User user = userService.findByEmail(signInReqDto.getEmail());
             String username = user.getName();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, signInReqDto.getPassword()));
+            authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(username, signInReqDto.getPassword()));
 
             String token = jwtTokenProvider.createToken(username, user.getRoles());
 

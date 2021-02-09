@@ -15,8 +15,8 @@ import java.util.UUID;
 public class CartRecord extends AuditableSession {
 
     @Id
-    //TODO: figure out how does it work
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    // TODO: figure out how does it work
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Type(type = "uuid-char")
     @Column(name = "cart_record_id", columnDefinition = "uniqueidentifier")
     private UUID cartRecordId;

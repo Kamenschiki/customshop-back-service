@@ -48,16 +48,11 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", getRoleNames(userRoles));
 
-
         Date now = new Date(System.currentTimeMillis());
         Date validTill = new Date(now.getTime() + expirationMillis);
 
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validTill)
-                .signWith(SignatureAlgorithm.HS256, secret)
-                .compact();
+        return Jwts.builder().setClaims(claims).setIssuedAt(now).setExpiration(validTill)
+                .signWith(SignatureAlgorithm.HS256, secret).compact();
 
     }
 
@@ -71,19 +66,18 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(String bearerToken) {
-        if(bearerToken != null && bearerToken.startsWith("Bearer_")){
+        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
             return bearerToken.substring(7);
         }
         return null;
     }
 
-
     public boolean validateToken(String token) {
-        try{
+        try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
 
-        } catch (JwtException | IllegalArgumentException e){
+        } catch (JwtException | IllegalArgumentException e) {
             throw new JwtAuthException("JWT Token is expired or invalid");
         }
     }
