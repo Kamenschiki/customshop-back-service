@@ -3,7 +3,7 @@ name: GitHubActiontest
 on:
   push:
     branches: 
-      - master
+      - develop
 jobs:
   my-test:
     runs-on: ubuntu-latest
