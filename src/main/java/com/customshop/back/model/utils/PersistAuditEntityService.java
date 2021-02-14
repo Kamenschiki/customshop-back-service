@@ -1,10 +1,8 @@
 package com.customshop.back.model.utils;
 
-import com.customshop.back.auth.security.jwt.JwtTokenProvider;
-import com.customshop.back.model.entity.auditable.AuditableEnteredBy;
+import com.customshop.back.model.entity.Detailed;
 import com.customshop.back.model.entity.auditable.AuditableSession;
 import com.customshop.back.model.web.filter.RequestContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +12,6 @@ import java.util.List;
 
 @Component
 public class PersistAuditEntityService {
-
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -28,10 +23,9 @@ public class PersistAuditEntityService {
             if (entity instanceof AuditableSession) {
                 fillAuditableSessionFields((AuditableSession) entity);
             }
-            if (entity instanceof AuditableEnteredBy) {
-                fillAuditableEnteredByFields((AuditableEnteredBy) entity);
+            if(entity instanceof Detailed){
+                ((Detailed<?>) entity).getDetails().forEach(this::fillAuditableSessionFields);
             }
-
             entityManager.persist(entity);
         }
     }
@@ -44,8 +38,9 @@ public class PersistAuditEntityService {
                 if (entity instanceof AuditableSession) {
                     fillAuditableSessionFields((AuditableSession) entity);
                 }
-                if (entity instanceof AuditableEnteredBy) {
-                    fillAuditableEnteredByFields((AuditableEnteredBy) entity);
+                //TODO: find better solution to walk through aggregated entities
+                if(entity instanceof Detailed){
+                    ((Detailed<?>) entity).getDetails().forEach(this::fillAuditableSessionFields);
                 }
             }
         });
@@ -61,25 +56,11 @@ public class PersistAuditEntityService {
         if (auditableSession.getCreateDateTimeUtc() == null) {
             auditableSession.setCreateDateTimeUtc(TimestampUtils.getCurrentTimestamp());
             auditableSession.setUpdateDateTimeUtc(auditableSession.getCreateDateTimeUtc());
-            auditableSession.setCreateSessionTokenId(authToken);
-            auditableSession.setUpdateSessionTokenId(authToken);
+            auditableSession.setCreateJwtToken(authToken);
+            auditableSession.setUpdateJwtToken(authToken);
         } else {
-            auditableSession.setUpdateDateTimeUtc(auditableSession.getCreateDateTimeUtc());
-            auditableSession.setUpdateSessionTokenId(authToken);
+            auditableSession.setUpdateDateTimeUtc(TimestampUtils.getCurrentTimestamp());
+            auditableSession.setUpdateJwtToken(authToken);
         }
     }
-
-    private void fillAuditableEnteredByFields(AuditableEnteredBy auditableEnteredBy) {
-        String username = RequestContext.get(RequestContext.AUTH_TOKEN) != null
-                ? jwtTokenProvider.getUsername(RequestContext.get(RequestContext.AUTH_TOKEN).toString())
-                : "";
-
-        if (auditableEnteredBy.getCreatedByAdmin() == null) {
-            auditableEnteredBy.setCreatedByAdmin(username);
-            auditableEnteredBy.setUpdatedByAdmin(username);
-        } else {
-            auditableEnteredBy.setUpdatedByAdmin(username);
-        }
-    }
-
 }

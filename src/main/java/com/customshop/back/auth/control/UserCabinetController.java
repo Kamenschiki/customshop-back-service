@@ -3,8 +3,8 @@ package com.customshop.back.auth.control;
 import com.customshop.back.auth.security.jwt.JwtAuthException;
 import com.customshop.back.auth.security.jwt.JwtTokenProvider;
 import com.customshop.back.model.dao.UserDao;
-import com.customshop.back.model.dto.GetUserDataResDto;
-import com.customshop.back.model.entity.User;
+import com.customshop.back.model.dto.query.res.GetMyPersonalDataResDto;
+import com.customshop.back.model.entity.auth.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +24,8 @@ public class UserCabinetController {
     private JwtTokenProvider jwtTokenProvider;
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GetUserDataResDto> getUserData(@RequestHeader(name = "Authorization") String accessToken) {
+    public ResponseEntity<GetMyPersonalDataResDto> getMyPersonalData(
+            @RequestHeader(name = "Authorization") String accessToken) {
 
         String resolvedToken = jwtTokenProvider.resolveToken(accessToken);
         if (jwtTokenProvider.validateToken(resolvedToken)) {
@@ -32,7 +33,7 @@ public class UserCabinetController {
             if (result == null) {
                 throw new RuntimeException("404 User not found");
             }
-            return new ResponseEntity<>(new GetUserDataResDto(result), HttpStatus.OK);
+            return new ResponseEntity<>(new GetMyPersonalDataResDto(result), HttpStatus.OK);
         } else {
             throw new JwtAuthException("JWT Token is expired");
         }

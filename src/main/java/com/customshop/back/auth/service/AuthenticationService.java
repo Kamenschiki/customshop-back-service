@@ -1,10 +1,10 @@
 package com.customshop.back.auth.service;
 
-import com.customshop.back.model.dto.SignUpReqDto;
-import com.customshop.back.model.entity.Role;
-import com.customshop.back.model.entity.User;
+import com.customshop.back.model.dto.auth.SignUpReqDto;
 import com.customshop.back.model.entity.auditable.AuditableStatus;
-import com.customshop.back.model.repo.RoleRepo;
+import com.customshop.back.model.entity.auth.Role;
+import com.customshop.back.model.entity.auth.User;
+import com.customshop.back.model.repo.auth.RoleRepo;
 import com.customshop.back.model.utils.PersistAuditEntityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

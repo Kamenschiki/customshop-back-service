@@ -4,7 +4,7 @@ customshop-backend-service developed as open source so anyone can use its wide f
 ###current features implemented:
 1. SwaggerUI for easy and most detailed view of all endpoint
 2. JWT token security authorization, expiration time of token can be managed by editing src/main/resources/application.properties jwt.token.expired property
-3. MySQL database connection via docker-compose
+3. MariaDB server database connection via docker-compose
 4. Liquibase change set migrations for easy and fast data setup before each run
 
 ###current features in progress:

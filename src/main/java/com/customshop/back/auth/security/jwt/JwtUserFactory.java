@@ -1,8 +1,8 @@
 package com.customshop.back.auth.security.jwt;
 
-import com.customshop.back.model.entity.Role;
-import com.customshop.back.model.entity.User;
 import com.customshop.back.model.entity.auditable.AuditableStatus;
+import com.customshop.back.model.entity.auth.Role;
+import com.customshop.back.model.entity.auth.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

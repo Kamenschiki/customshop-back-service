@@ -9,10 +9,10 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class AuditableSession extends AuditableDateTime {
 
-    @Column(name = "CREATE_SESSION_TOKEN_ID")
-    private String createSessionTokenId;
+    @Column(name = "create_jwt_token")
+    private String createJwtToken;
 
-    @Column(name = "UPDATE_SESSION_TOKEN_ID")
-    private String updateSessionTokenId;
+    @Column(name = "update_jwt_token")
+    private String updateJwtToken;
 
 }

@@ -1,7 +1,6 @@
 package com.customshop.back.auth.security.jwt;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,8 +8,7 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 public class JwtUser implements UserDetails {
 
     private final UUID userId;

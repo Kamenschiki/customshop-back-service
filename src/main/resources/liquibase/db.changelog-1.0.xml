@@ -5,58 +5,61 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet  id="0.0.1" author="mrscors">
-        <sqlFile path="classpath:liquibase/sql/changeset-1.0.sql"/>
-
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="user_roles"
-                                 constraintName="fk_user_roles_user"
+    <changeSet  id="0.0.1 Initial schema" author="mrscors">
+        <sqlFile path="classpath:liquibase/sql/user-ddl.sql"/>
+        <sqlFile path="classpath:liquibase/sql/product-ddl.sql"/>
+        <!--TODO: move fks to sql-->
+        <addForeignKeyConstraint baseColumnNames="USER_ID"
+                                 baseTableName="USER_ROLES"
+                                 constraintName="FK_USER_ROLES_USER"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
-                                 referencedColumnNames="user_id"
-                                 referencedTableName="users"/>
+                                 referencedColumnNames="USER_ID"
+                                 referencedTableName="USERS"/>
 
-        <addForeignKeyConstraint baseColumnNames="role_id"
-                                 baseTableName="user_roles"
-                                 constraintName="fk_user_roles_roles"
+        <addForeignKeyConstraint baseColumnNames="ROLE_ID"
+                                 baseTableName="USER_ROLES"
+                                 constraintName="FK_USER_ROLES_ROLES"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
-                                 referencedColumnNames="role_id"
-                                 referencedTableName="roles"/>
+                                 referencedColumnNames="ROLE_ID"
+                                 referencedTableName="ROLES"/>
     </changeSet>
 
-    <changeSet id="0.0.2" author="mrscors">
-        <insert tableName="roles">
-            <column name="role_id" value="00000000-0000-0000-0000-000000000001"/>
-            <column name="name" value="ROLE_USER"/>
+    <changeSet id="0.0.2 Basic users data" author="mrscors">
+        <insert tableName="ROLES">
+            <column name="ROLE_ID" value="00000000-0000-0000-0000-000000000001"/>
+            <column name="NAME" value="ROLE_USER"/>
         </insert>
-        <insert tableName="roles">
-            <column name="role_id" value="00000000-0000-0000-0000-000000000000"/>
-            <column name="name" value="ROLE_ADMIN"/>
+        <insert tableName="ROLES">
+            <column name="ROLE_ID" value="00000000-0000-0000-0000-000000000000"/>
+            <column name="NAME" value="ROLE_ADMIN"/>
         </insert>
-        <insert tableName="users">
-            <column name="user_id" value="00000001-0000-0000-0000-000000000000"/>
-            <column name="name" value="root"/>
-            <column name="password" value="$2a$04$8uHXQU5emxqrZcEVXwyL/.xcrsMA19jyVnsF7Uu1Cno6it5qF6gaK"/>
-            <column name="auditable_status" value="ACTIVE"/>
+        <insert tableName="USERS">
+            <column name="USER_ID" value="00000001-0000-0000-0000-000000000000"/>
+            <column name="NAME" value="root"/>
+            <column name="PASSWORD" value="$2a$04$8uHXQU5emxqrZcEVXwyL/.xcrsMA19jyVnsF7Uu1Cno6it5qF6gaK"/>
+            <column name="AUDITABLE_STATUS" value="ACTIVE"/>
+            <column name="UPDATE_JWT_TOKEN" value="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpYXQiOjE2MTI5NDgwNTYsImV4cCI6MTYxMjk1MTY1Nn0.9mcd9WG06NvE0hCRrk3mQIyL2iJP_5gN0nQfTx9tEzU"/>
         </insert>
-        <insert tableName="users">
-            <column name="user_id" value="00000002-0000-0000-0000-000000000000"/>
-            <column name="name" value="user"/>
-            <column name="password" value="$2a$04$8uHXQU5emxqrZcEVXwyL/.xcrsMA19jyVnsF7Uu1Cno6it5qF6gaK"/>
-            <column name="auditable_status" value="ACTIVE"/>
+        <insert tableName="USERS">
+            <column name="USER_ID" value="00000002-0000-0000-0000-000000000000"/>
+            <column name="NAME" value="user"/>
+            <column name="PASSWORD" value="$2a$04$8uHXQU5emxqrZcEVXwyL/.xcrsMA19jyVnsF7Uu1Cno6it5qF6gaK"/>
+            <column name="AUDITABLE_STATUS" value="ACTIVE"/>
+            <column name="UPDATE_JWT_TOKEN" value="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpYXQiOjE2MTI5NDgwNTYsImV4cCI6MTYxMjk1MTY1Nn0.9mcd9WG06NvE0hCRrk3mQIyL2iJP_5gN0nQfTx9tEzU"/>
         </insert>
-        <insert tableName="user_roles">
-            <column name="user_id" value="00000001-0000-0000-0000-000000000000"/>
-            <column name="role_id" value="00000000-0000-0000-0000-000000000000"/>
+        <insert tableName="USER_ROLES">
+            <column name="USER_ID" value="00000001-0000-0000-0000-000000000000"/>
+            <column name="ROLE_ID" value="00000000-0000-0000-0000-000000000000"/>
         </insert>
-        <insert tableName="user_roles">
-            <column name="user_id" value="00000001-0000-0000-0000-000000000000"/>
-            <column name="role_id" value="00000000-0000-0000-0000-000000000001"/>
+        <insert tableName="USER_ROLES">
+            <column name="USER_ID" value="00000001-0000-0000-0000-000000000000"/>
+            <column name="ROLE_ID" value="00000000-0000-0000-0000-000000000001"/>
         </insert>
-        <insert tableName="user_roles">
-            <column name="user_id" value="00000002-0000-0000-0000-000000000000"/>
-            <column name="role_id" value="00000000-0000-0000-0000-000000000001"/>
+        <insert tableName="USER_ROLES">
+            <column name="USER_ID" value="00000002-0000-0000-0000-000000000000"/>
+            <column name="ROLE_ID" value="00000000-0000-0000-0000-000000000001"/>
         </insert>
     </changeSet>
 

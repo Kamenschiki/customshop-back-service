@@ -1,6 +1,6 @@
 package com.customshop.back.auth.security.jwt;
 
-import com.customshop.back.model.entity.Role;
+import com.customshop.back.model.entity.auth.Role;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

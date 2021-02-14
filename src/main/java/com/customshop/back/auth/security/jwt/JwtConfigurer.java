@@ -1,5 +1,6 @@
 package com.customshop.back.auth.security.jwt;
 
+import com.customshop.back.model.web.filter.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

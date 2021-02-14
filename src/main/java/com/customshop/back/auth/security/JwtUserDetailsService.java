@@ -3,7 +3,7 @@ package com.customshop.back.auth.security;
 import com.customshop.back.auth.security.jwt.JwtUser;
 import com.customshop.back.auth.security.jwt.JwtUserFactory;
 import com.customshop.back.model.dao.UserDao;
-import com.customshop.back.model.entity.User;
+import com.customshop.back.model.entity.auth.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
