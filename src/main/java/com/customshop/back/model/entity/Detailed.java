@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Detailed<T extends BasicDetails> extends Unique {
 
-    //TODO: replace with Set
+    // TODO: replace with Set
 
     List<T> getDetails();
 

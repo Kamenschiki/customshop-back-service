@@ -23,7 +23,7 @@ public class PersistAuditEntityService {
             if (entity instanceof AuditableSession) {
                 fillAuditableSessionFields((AuditableSession) entity);
             }
-            if(entity instanceof Detailed){
+            if (entity instanceof Detailed) {
                 ((Detailed<?>) entity).getDetails().forEach(this::fillAuditableSessionFields);
             }
             entityManager.persist(entity);
@@ -38,8 +38,8 @@ public class PersistAuditEntityService {
                 if (entity instanceof AuditableSession) {
                     fillAuditableSessionFields((AuditableSession) entity);
                 }
-                //TODO: find better solution to walk through aggregated entities
-                if(entity instanceof Detailed){
+                // TODO: find better solution to walk through aggregated entities
+                if (entity instanceof Detailed) {
                     ((Detailed<?>) entity).getDetails().forEach(this::fillAuditableSessionFields);
                 }
             }
