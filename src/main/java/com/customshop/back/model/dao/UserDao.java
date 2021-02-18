@@ -62,7 +62,7 @@ public class UserDao implements BasicDao<User> {
         Query query = entityManager.createNativeQuery(GET_FILTERED_USER_LIST);
         query.setParameter("userName", getFilteredUserListReqDto.getUserName());
         query.setParameter("email", getFilteredUserListReqDto.getEmail());
-        query.setParameter("auditableStatus", getFilteredUserListReqDto.getAuditableStatus());
+        query.setParameter("auditableStatus", StringUtils.toString(getFilteredUserListReqDto.getAuditableStatus()));
         query.setParameter("createdAfter", StringUtils.toString(getFilteredUserListReqDto.getCreatedAfter()));
         query.setParameter("createdBefore", StringUtils.toString(getFilteredUserListReqDto.getCreatedBefore()));
         query.setParameter("lastUpdatedAfter", StringUtils.toString(getFilteredUserListReqDto.getLastUpdatedAfter()));
